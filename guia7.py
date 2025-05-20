@@ -267,4 +267,3 @@ m1, m2, m3, m4 = [[1,2,3],[4,0,5],[10,20,30]], [[5],[6],[7,8]], [[3,2,1],[5,4],[
 res1, res2, res3, res4 = [], [], [], []
 filasOrdenadas(m1, res1); filasOrdenadas(m2, res2); filasOrdenadas(m3, res3); filasOrdenadas(m4, res4)
 print(f"Caso 1: {res1}\nCaso 2: {res2}\nCaso 3: {res3}\nCaso 4: {res4}")
-
