@@ -1,3 +1,4 @@
+import random
 #Ejercicio 1
 def pertenece (s: list[int], e:int) -> bool:
     i=0
@@ -267,3 +268,163 @@ m1, m2, m3, m4 = [[1,2,3],[4,0,5],[10,20,30]], [[5],[6],[7,8]], [[3,2,1],[5,4],[
 res1, res2, res3, res4 = [], [], [], []
 filasOrdenadas(m1, res1); filasOrdenadas(m2, res2); filasOrdenadas(m3, res3); filasOrdenadas(m4, res4)
 print(f"Caso 1: {res1}\nCaso 2: {res2}\nCaso 3: {res3}\nCaso 4: {res4}")
+
+def columna (m:list[list[int]], c: int) -> list[int]:
+    res: list[int] = []
+    for i in range (len(m)):
+        res.append(m[i][c])
+    return res
+
+print(columna([[1,2,3],[4,5,6]],1))
+
+def columnas_ordenadas (m:list[list[int]]) -> list[bool]:
+    res: list[bool] = []
+    columna = []
+    cantidadColumnas = len(m[0])
+    print("cantidad columnas", cantidadColumnas)
+    for j in range (cantidadColumnas):
+        for i in range (len(m)):
+            columna.append(m[i][j])
+            print("columna", columna)
+        if ordenados(columna) == True:
+            res.append(True)
+        else:
+            res.append(False)
+        columna.clear()
+    return res
+
+print(columnas_ordenadas([[7,1,9],[1,2,3],[4,5,6]]))
+
+def transponer (m:list[list[int]]) -> list[list[int]]:
+    res : list[list[int]] = []
+    cantidadColumnas = len(m[0])
+    for j in range (cantidadColumnas):
+        columna=[]
+        for i in range (len(m)):
+            columna.append(m[i][j])
+            print("columna", columna)
+        res.append(columna)
+
+    return res
+
+print(transponer([[7,1,9],[1,2,3],[4,5,6]]))
+#HACER ESTE DEL TATETI DESPUES QUE ES IMPORTANTE
+"""  def quien_gana_tateti (m:list[list[chr]]) -> int
+    res : int = 0
+    cantidadColumnas = len(m[0])
+    for i in range (len(m)):
+        for j in range(cantidadColumnas):"
+
+
+def alineada (columna: list[chr], equipo: chr) -> bool:
+    for i in range (len(columna)):
+        if columna[i] != equipo:
+            return False
+    return True
+
+print (alineada(['o','o','o'], 'o'))"""
+
+
+#Ejercicio 4
+def listaNombresEstudiantes () -> list[str]:
+    res : list[str] = []
+    seguir = True
+    while seguir == True:
+        nombre = input("Ingrese el nombre del estudiante: ")
+        if nombre == "listo" or nombre == "":
+            seguir == False
+            return res
+        else:
+            res.append(nombre)
+
+#print(listaNombresEstudiantes())
+
+def historialMonederoElectronico () -> list[tuple] : 
+    res : list[tuple] = []
+    credito = 0
+    seguir = True
+    while seguir == True:
+        operacion = input("Pulse 'C' si quiere cargar creditos, 'D' si quiere descontar creditos, 'X' para finalizar el programa: ")
+        if operacion == "X":
+            seguir = False
+        else:
+            monto = input("ingresar monto de la operacion: ")
+            res.append((operacion, monto))
+    return res
+
+#print(historialMonederoElectronico())
+
+def sieteYMedio () -> list[int]:
+    res : list[int] = []
+    primerCarta = pedirCarta()
+    print("Carta: ", primerCarta)
+    res.append(primerCarta)
+    puntuacion = valorCarta(primerCarta)
+    seguir = True
+    while seguir == True and puntuacion <= 7.5:
+        print("tu puntaje es: ", puntuacion)
+        deseaSeguir = input("Desea pedir otra carta? (s/n): ")
+        if deseaSeguir == 'n':
+            seguir = False
+        else:
+            carta = pedirCarta()
+            print("Carta: ", carta)
+            res.append(carta)
+            valor = valorCarta(carta)
+            puntuacion = puntuacion + valor
+            if puntuacion > 7.5:
+                print("Has perdido")
+    if puntuacion <= 7.5:
+        print("Has ganado")
+ 
+    return res
+
+
+def pedirCarta () -> int :
+    carta = random.randint(1,12)
+    while carta in (8,9):
+        carta = random.randint(1,12)
+    return carta
+
+def valorCarta(carta: int) -> float:
+    res: float = 0.0
+    if carta in (10,11,12):
+        res = 0.5
+    else:
+        res = carta
+    return res
+
+#print(sieteYMedio())
+
+def fortaleza_contraseña (contraseña: str) -> str:
+    #caso contraseña roja
+    if len(contraseña) < 5:
+        return "ROJA"
+    
+    #Caso verde
+    if esVerde(contraseña) == True:
+        return "VERDE"
+    
+    #caso amarillo
+    if esVerde(contraseña) == False and len(contraseña) >= 5:
+        return "AMARILLO"
+
+def esVerde (contraseña: str) -> bool:
+    longitud = len(contraseña)
+    tiene_mayuscula = False
+    tiene_minuscula = False
+    tieneDigito = False
+    for i in contraseña:
+        if i.islower():
+            tiene_minuscula = True
+        if i.isupper():
+            tiene_mayuscula = True
+        if i.isdigit():
+            tieneDigito = True
+    if longitud > 8 and tiene_mayuscula == True and tiene_minuscula == True and tieneDigito == True:
+        return True
+    else:
+        return False
+
+contraseña = input("ingrese la contraseña: ")
+print(fortaleza_contraseña(contraseña))
